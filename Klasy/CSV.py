@@ -19,39 +19,50 @@ class CSVReader:
     def modify_csv_file(self, changes, new_values):
         for change in changes:
             values = change.split(',')
-            if len(values) != 3:
-                print(f"Nieprawidłowa zmiana: {change}. Oczekiwane 3 wartości"
-                      f"oddzielone przecinkami")
+            if len(values) < 3:
+                print(
+                    f"Błąd: Nieprawidłowa zmiana: {change}. "
+                    f"Oczekiwane co najmniej 3 wartości oddzielone przecinkami")
                 continue
-            x, y, value = values
+            x, y, value = values[:3]
             if not x.isdigit():
-                print(f"Nieprawidłowa zmiana {change}. Pierwszy argument musi"
-                      f" być cyfrą.")
+                print(
+                    f"Błąd: Nieprawidłowa zmiana {change}."
+                    f" Pierwszy argument musi być cyfrą.")
                 continue
             x = int(x)
             if not y.isdigit():
-                print(f"Nieprawidłowa zmiana {change}. Drugi argument musi"
-                      f" być cyfrą.")
+                print(
+                    f"Błąd: Nieprawidłowa zmiana {change}."
+                    f" Drugi argument musi być cyfrą.")
                 continue
             y = int(y)
 
-            if y >= len(self.data) or x >= len(self.data[y]):
+            if y >= len(self.data):
                 while y >= len(self.data):
                     self.data.append([])
+            if x >= len(self.data[y]):
                 while x >= len(self.data[y]):
                     self.data[y].append('')
-                self.data[y][x] = value
-            else:
-                self.data[y][x] = value
+            self.data[y][x] = value
 
         for value in new_values:
             if len(value) < 3:
+                print(
+                    f"Błąd: Nieprawidłowa wartość: {value}. "
+                    f"Oczekiwane co najmniej 3 wartości oddzielone przecinkami")
                 continue
-            x, y, value = value[0], value[1], value[2]
+            x, y, value = value[:3]
             if not x.isdigit():
+                print(
+                    f"Błąd: Nieprawidłowa wartość {value}."
+                    f" Pierwszy argument musi być cyfrą.")
                 continue
             x = int(x)
             if not y.isdigit():
+                print(
+                    f"Błąd: Nieprawidłowa wartość {value}."
+                    f" Drugi argument musi być cyfrą.")
                 continue
             y = int(y)
             if y >= len(self.data):

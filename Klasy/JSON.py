@@ -3,7 +3,6 @@ import sys
 import os
 
 
-
 class JSONReader:
     def __init__(self, input_file_path, output_file_path):
         self.input_file_path = input_file_path
