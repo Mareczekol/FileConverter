@@ -1,3 +1,11 @@
 # created by virtualenv automatically
 venv
 .idea/
+out.csv
+pop.csv
+out.pickle
+out.json
+pop.json
+pop.txt
+out.txt
+
